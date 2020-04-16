@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Создание пользователя</h1>
+<form [formGroup]="createForm" (ngSubmit)="create()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <mat-form-field>
+        <mat-label>Название</mat-label>
+        <input matInput type="text" name="name" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Стоимость за единицу</mat-label>
+        <input matInput type="number" name="cost" formControlName="cost" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="modalClose()">
+      Отмена
+    </button>
+    <button
+      mat-button
+      type="submit"
+      cdkFocusInitial
+      [disabled]="createForm.invalid"
+      cdkFocusInitial
+    >
+      Создать
+    </button>
+  </div>
+</form>

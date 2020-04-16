@@ -1,0 +1,8 @@
+name: colhoz-front
+image: nginx:1.17-alpine
+workdir: /usr/src/app
+command:
+
+- /bin/sh
+forward:
+  - 80:80

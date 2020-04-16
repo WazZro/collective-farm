@@ -1,0 +1,43 @@
+<div *ngIf="loading" class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div>
+  <div class="margin-5px-line">
+    <label class="mat-headline">Склады</label>
+    <div class="grid-list">
+      <button mat-flat-button color="primary" (click)="create()">
+        Создать склад
+      </button>
+    </div>
+  </div>
+  <div class="stock-list">
+    <mat-card *ngFor="let stock of data">
+      <mat-card-header>
+        <mat-card-title>Склад #{{ stock.id }} - {{ stock.product.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="stock-desc-item">
+        <label>Вместимость:</label>
+        <span>{{ stock.capacity }}</span>
+
+        <label>На складе:</label>
+        <span>{{ stock.congestion }}</span>
+
+        <div class="fullness" style="grid-column: span 2;">
+          <label style="margin-right: 5px;">Заполненность: </label>
+          <mat-progress-bar
+            style="height: 16px;"
+            color="warn"
+            mode="determinate"
+            [value]="stock.fullness"
+          ></mat-progress-bar>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="update(stock)" mat-button aria-label="Update">
+          Изменить
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

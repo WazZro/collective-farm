@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Обновление пользователя</h1>
+<form [formGroup]="updateForm" (ngSubmit)="update()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <mat-form-field>
+        <mat-label>ID</mat-label>
+        <input matInput type="number" name="id" formControlName="id" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Название</mat-label>
+        <input matInput type="text" name="name" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Стоимость за единицу</mat-label>
+        <input matInput type="number" name="cost" formControlName="cost" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="modalClose()">
+      Отмена
+    </button>
+    <button
+      mat-button
+      type="submit"
+      cdkFocusInitial
+      [disabled]="updateForm.invalid"
+      cdkFocusInitial
+    >
+      Создать
+    </button>
+  </div>
+</form>

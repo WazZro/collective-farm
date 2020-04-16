@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>Обновление пользователя</h1>
+<form [formGroup]="updateForm" (ngSubmit)="update()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <mat-form-field>
+        <mat-label>ID</mat-label>
+        <input matInput type="number" name="id" formControlName="id" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Производитель</mat-label>
+        <input matInput type="text" name="brand" formControlName="brand" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Модель</mat-label>
+        <input matInput type="text" name="model" formControlName="model" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Год сборки</mat-label>
+        <input
+          matInput
+          type="number"
+          name="buildYear"
+          formControlName="buildYear"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Вместимость</mat-label>
+        <input
+          matInput
+          type="number"
+          name="capacity"
+          formControlName="capacity"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="modalClose()">
+      Отмена
+    </button>
+    <button
+      mat-button
+      type="submit"
+      cdkFocusInitial
+      [disabled]="updateForm.invalid"
+      cdkFocusInitial
+    >
+      Создать
+    </button>
+  </div>
+</form>

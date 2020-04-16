@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 2vw;
+}
+
+.menu-element {
+  cursor: pointer;
+}
+
+.menu-element:hover {
+  @include mat-elevation(6);
+}

@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Обновление</h1>
+<form [formGroup]="updateForm" (ngSubmit)="update()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <mat-form-field>
+        <mat-label>ID</mat-label>
+        <input matInput type="number" name="id" formControlName="id" />
+      </mat-form-field>
+
+      <ng-select
+        name="model"
+        formControlName="model"
+        [items]="modelStream | async"
+        [multiple]="false"
+        bindLabel="model"
+        placeholder="Модель грузовика"
+        appendTo="body"
+      >
+      </ng-select>
+
+      <mat-form-field>
+        <mat-label>Регистрационный номер</mat-label>
+        <input
+          matInput
+          type="text"
+          name="registrationNumber"
+          formControlName="registrationNumber"
+        />
+      </mat-form-field>
+
+      <ng-select
+        name="model"
+        formControlName="drivers"
+        [items]="userStream | async"
+        [multiple]="true"
+        bindLabel="fullName"
+        placeholder="Водители"
+        appendTo="body"
+      >
+      </ng-select>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button cdkFocusInitial type="button" (click)="modalClose()">
+      Отмена
+    </button>
+    <button mat-button type="submit" [disabled]="updateForm.invalid">
+      Обновить
+    </button>
+  </div>
+</form>

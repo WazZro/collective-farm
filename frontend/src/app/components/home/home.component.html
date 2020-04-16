@@ -1,0 +1,9 @@
+<div class="menu">
+  <mat-card
+    class="menu-element"
+    *ngFor="let item of menu"
+    [routerLink]="[item.route]"
+  >
+    {{ item.label }}
+  </mat-card>
+</div>

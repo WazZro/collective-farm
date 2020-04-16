@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Создание</h1>
+<form [formGroup]="createForm" (ngSubmit)="create()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <ng-select
+        name="model"
+        formControlName="model"
+        [items]="modelStream | async"
+        [multiple]="false"
+        bindLabel="model"
+        placeholder="Модель грузовика"
+      >
+      </ng-select>
+
+      <mat-form-field>
+        <mat-label>Регистрационный номер</mat-label>
+        <input
+          matInput
+          type="text"
+          name="registrationNumber"
+          formControlName="registrationNumber"
+        />
+      </mat-form-field>
+
+      <ng-select
+        name="model"
+        formControlName="drivers"
+        [items]="userStream | async"
+        [multiple]="true"
+        bindLabel="fullName"
+        placeholder="Водители"
+        appendTo="body"
+      >
+      </ng-select>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" cdkFocusInitial (click)="modalClose()">
+      Отмена
+    </button>
+    <button mat-button type="submit" [disabled]="createForm.invalid">
+      Создать
+    </button>
+  </div>
+</form>

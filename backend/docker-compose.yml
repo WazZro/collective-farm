@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  app:
+    build: ./
+    command: ['']
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=${ENVIRONMENT:-development}
+    volumes:
+      - ./:/home/node/app:Z
+    ports:
+      - '3000:3000'
+      - '9229'
+    tty: true
+    depends_on:
+      - mysql
+    networks:
+      - default
+
+  mysql:
+    image: mysql:8
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - "3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-colhoz}
+      - MYSQL_USER=${MYSQL_USER:-colhoz}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-password}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-123123rr}
+    
+
+volumes:
+  mysql:
+    driver: local

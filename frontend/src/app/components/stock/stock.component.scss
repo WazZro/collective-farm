@@ -1,0 +1,50 @@
+.stock-list {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 2vw;
+}
+
+.fullness {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .stock-desc-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 0.8em;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .stock-desc-item {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: [labels] 0.75fr [inputs] 1.25fr;
+    grid-gap: 0.8em;
+  }
+
+  .stock-desc-item > label {
+    grid-column: labels;
+    grid-row: auto;
+    vertical-align: middle;
+    // line-height: 40px;
+  }
+
+  .stock-desc-item > input,
+  .stock-desc-item > textarea,
+  .stock-desc-item > span {
+    grid-column: inputs;
+    grid-row: auto;
+  }
+
+  .stock-desc-item > button,
+  legend,
+  .stock-desc-item-actions {
+    grid-column: span 2;
+  }
+}

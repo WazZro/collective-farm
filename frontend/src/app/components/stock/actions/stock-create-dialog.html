@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Создание</h1>
+<form [formGroup]="createForm" (ngSubmit)="create()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <ng-select
+        name="product"
+        formControlName="product"
+        [items]="productStream | async"
+        [multiple]="false"
+        bindLabel="name"
+        placeholder="Хранимый продукт"
+      >
+      </ng-select>
+
+      <mat-form-field>
+        <mat-label>Вместимость</mat-label>
+        <input
+          matInput
+          type="number"
+          name="capacity"
+          formControlName="capacity"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Заполненность</mat-label>
+        <input
+          matInput
+          type="number"
+          name="congestion"
+          formControlName="congestion"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" cdkFocusInitial (click)="modalClose()">
+      Отмена
+    </button>
+    <button mat-button type="submit" [disabled]="createForm.invalid">
+      Создать
+    </button>
+  </div>
+</form>
