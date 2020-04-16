@@ -1,0 +1,20 @@
+kind: Project
+name: collective-farm
+environments:
+  - name: local
+providers:
+  - name: local-kubernetes
+    environments: ["local"]
+---
+kind: Module
+name: database
+type: container
+image: mysql:8
+services:
+  - name: mysql
+    ports:
+      - name: tcp
+        containerPort: 3306
+        servicePort: 3306
+    env:
+      MYSQL_ROOT_PASSWORD: rootpassword

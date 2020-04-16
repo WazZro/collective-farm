@@ -1,0 +1,25 @@
+kind: Module
+name: collective-farm-backend
+type: container
+description: Collective farm backend service
+hotReload:
+  sync:
+    - target: /home/node/app
+services:
+  - name: backend
+    args: [npm, start]
+    hotReloadArgs: [npm, run, start:dev]
+    ports:
+      - name: http
+        containerPort: 3000
+        servicePort: 80
+    ingresses:
+      - path: /api
+        port: http
+    env:
+      DMBS_HOST: mysql
+      DBMS_USER: farm
+      DBMS_PASSWORD: password
+      DBMS_DATABASE: farm
+    dependencies:
+      - mysql
