@@ -2,9 +2,29 @@ kind: Project
 name: collective-farm
 environments:
   - name: local
+  - name: remote-dev
+defaultEnvironment: remote-dev
 providers:
   - name: local-kubernetes
     environments: ["local"]
+  - name: kubernetes
+    environments: ["remote-dev"]
+    context: k3s-default
+    buildMode: cluster-docker
+    defaultHostname: collective-farm.k3s.local
+    # deploymentRegistry:
+    #   hostname: 13.13.13.239:5555
+    #   namespace: collective-farm
+    setupIngressController: false
+# ---
+# kind: Module
+# name: mysql-volume-claim
+# type: persistentvolumeclaim
+# spec:
+#   accessModes: [ReadWriteOnce]
+#   resources:
+#     requests:
+#       storage: 128Mi
 ---
 kind: Module
 name: database
@@ -16,5 +36,9 @@ services:
       - name: tcp
         containerPort: 3306
         servicePort: 3306
+    volumes:
+      - name: mysql-volume
+        # module: mysql-volume
+        containerPath: /var/lib/mysql
     env:
       MYSQL_ROOT_PASSWORD: rootpassword

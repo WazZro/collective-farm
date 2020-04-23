@@ -7,15 +7,14 @@ hotReload:
     - target: /home/node/app
 services:
   - name: backend
-    args: [npm, start]
     hotReloadArgs: [npm, run, start:dev]
     ports:
       - name: http
         containerPort: 3000
         servicePort: 80
     ingresses:
-      - path: /api
-        port: http
+      - port: http
+        path: /api
     env:
       DMBS_HOST: mysql
       DBMS_USER: farm

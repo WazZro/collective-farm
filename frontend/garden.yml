@@ -1,0 +1,21 @@
+kind: Module
+name: collective-farm-frontend
+type: container
+description: Collective farm frontend service
+hotReload:
+  sync:
+    - target: /app
+services:
+  - name: frontend
+    hotReloadArgs: [npm, run, dev:ssr]
+    limits:
+      memory: 2048
+    ports:
+      - name: http
+        containerPort: 4000
+        servicePort: 80
+    ingresses:
+      - port: http
+        hostname: frontend.collective-farm.goldencode.local
+    dependencies:
+      - backend

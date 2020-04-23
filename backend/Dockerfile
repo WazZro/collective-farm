@@ -13,5 +13,4 @@ RUN npm install
 COPY ./ ./
 RUN npm run build
 
-ENTRYPOINT ["node"]
-CMD ["dist/main.js"]
+CMD ["npm", "run", "start:prod"]
