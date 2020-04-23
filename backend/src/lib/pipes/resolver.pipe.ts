@@ -11,7 +11,7 @@ import 'reflect-metadata';
 import { RESOLVER_KEY } from '../decorators/resolver.decorator';
 
 export class EntityResolver extends ValidationPipe {
-  public constructor(@Optional() options?: ValidationPipeOptions) {
+  constructor(@Optional() options?: ValidationPipeOptions) {
     if (!options) options = {};
 
     super(
@@ -57,7 +57,7 @@ export class EntityResolver extends ValidationPipe {
     entityClass: any,
   ): Promise<void> {
     const entity = await this.loadEntity(entityClass, value[key]);
-    this.mapEntity(value, key, entity);
+    EntityResolver.mapEntity(value, key, entity);
   }
 
   private async loadEntity(
@@ -69,11 +69,11 @@ export class EntityResolver extends ValidationPipe {
     let entity;
     if (!isArray)
       entity = await getRepository(entityClass).findOne(
-        this.getIdFromPlain(nestedObject),
+        EntityResolver.getIdFromPlain(nestedObject),
       );
     else
       entity = await getRepository(entityClass).findByIds(
-        nestedObject.map((value: any) => this.getIdFromPlain(value)),
+        nestedObject.map((value: any) => EntityResolver.getIdFromPlain(value)),
       );
     if ((!isArray && !entity) || (isArray && !entity.length))
       throw new BadRequestException('One or several relations do not exist');
@@ -81,7 +81,7 @@ export class EntityResolver extends ValidationPipe {
     return entity;
   }
 
-  private getIdFromPlain(nestedObject: any): number | string {
+  private static getIdFromPlain(nestedObject: any): number | string {
     let id;
     if (typeof nestedObject === 'object') id = nestedObject.id;
     else if (
@@ -93,7 +93,7 @@ export class EntityResolver extends ValidationPipe {
     return id;
   }
 
-  private mapEntity(value: any, key: string, entity: any): void {
+  private static mapEntity(value: any, key: string, entity: any): void {
     value[key] = entity;
   }
 }

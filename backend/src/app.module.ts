@@ -1,17 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './components/user/user.module';
 import { AuthModule } from './components/auth/auth.module';
-import { EntityResolver } from './lib/pipes/resolver.pipe';
 import { TruckModule } from './components/truck/truck.module';
 import { ProductModule } from './components/product/product.module';
 import { TruckModelModule } from './components/truck-model/truck-model.module';
 import { DeliveryModule } from './components/delivery/delivery.module';
 import { StockModule } from './components/stock/stock.module';
+import { RoleGuard } from './lib/guards/role.guard';
+import { ActionPerformerInterceptor } from './lib/interceptors/action-performer.interceptor';
+import { TransformInterceptor } from './lib/interceptors/transformer.interceptor';
+import { PrivateFieldInterceptor } from './lib/interceptors/private-field.interceptor';
+import { EntityResolver } from './lib/pipes/resolver.pipe';
 
 @Module({
   imports: [
@@ -40,6 +44,22 @@ import { StockModule } from './components/stock/stock.module';
     {
       provide: APP_PIPE,
       useClass: EntityResolver,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ActionPerformerInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: PrivateFieldInterceptor,
     },
   ],
 })

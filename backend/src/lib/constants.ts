@@ -1,4 +1,4 @@
-export const APPLICATION_PORT = 8080;
+export const APPLICATION_PORT = 3000;
 export const CONTAINER_HOSTNAME_IP = '0.0.0.0';
 
 export const CORS_OPTION = {
@@ -9,17 +9,11 @@ export const CORS_OPTION = {
   credentials: true,
 };
 
-export const JWT_PRIVATE_KEY =
-  process.env.ENVIRONMENT === 'development'
-    ? JSON.parse(`"${process.env.PRIVATE_KEY}"`)
-    : process.env.PRIVATE_KEY;
-export const JWT_PUBLIC_KEY =
-  process.env.ENVIRONMENT === 'development'
-    ? JSON.parse(`"${process.env.PUBLIC_KEY}"`)
-    : process.env.PUBLIC_KEY;
-
 export const ARGON_HASHING_TIME = 128;
 export const ARGON_HASHING_THREADS = 16;
 
-export const REFRESH_TOKEN_EXPIRES = 7776000;
-export const ACCESS_TOKEN_EXPIRES = 3600;
+export const SESSION_MEMORY_STORE_EXPIRE = 86400000; // 24h
+export const SESSION_COOKIE_SECRET_KEY = process.env.COOKIE_SECRET || 'test_secret';
+export const SESSION_COOKIE_NAME = process.env.COOKIE_NAME || 'ss';
+export const ROLE_META = 'farm_role_key';
+

@@ -21,5 +21,5 @@ import { TruckModelService } from './truck-model.service';
 })
 @Controller('api/v1/truck-models')
 export class TruckModelController implements CrudController<TruckModel> {
-  public constructor(public service: TruckModelService) {}
+  constructor(public service: TruckModelService) {}
 }

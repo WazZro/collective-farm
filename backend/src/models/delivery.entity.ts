@@ -20,46 +20,44 @@ import { UserRoles } from '../lib/interfaces/user-role.enum';
 @Entity()
 export class Delivery extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @Column({
     type: 'enum',
     enum: DeliveryStatus,
     default: DeliveryStatus.CREATED,
   })
-  public status: DeliveryStatus;
+  status: DeliveryStatus;
 
   @Column('bool', { default: false })
-  public isDone: boolean;
+  isDone: boolean;
 
   @Column('float')
-  public volume: number;
+  volume: number;
 
   @Column('datetime')
-  public deliveryDate: Date;
+  deliveryDate: Date;
 
   @ManyToOne(() => Truck)
-  public truck: Truck;
+  truck: Truck;
 
   @ManyToOne(() => User)
-  public driver: User;
+  driver: User;
 
   @ManyToOne(() => Product)
-  public product: Product;
+  product: Product;
 
   @ManyToOne(() => Stock)
-  public stock: Stock;
+  stock: Stock;
 
   @CreateDateColumn()
-  public createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  public updatedAt: Date;
+  updatedAt: Date;
 
   public canConfirm(user: User): boolean {
-    if (user.role === UserRoles.ADMIN || user.role === UserRoles.MANAGER)
-      return true;
-    return false;
+    return user.role === UserRoles.ADMIN || user.role === UserRoles.MANAGER;
   }
 
   @AfterUpdate()
