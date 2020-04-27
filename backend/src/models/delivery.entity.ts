@@ -1,21 +1,23 @@
 import { BadRequestException } from '@nestjs/common';
 import {
-  BaseEntity,
+  AfterUpdate,
+  BaseEntity, BeforeInsert,
   BeforeUpdate,
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  AfterUpdate,
-  CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Min } from 'class-validator';
 import { DeliveryStatus } from '../lib/interfaces/delivery-status.enum';
 import { Product } from './product.entity';
 import { Stock } from './stock.entity';
 import { Truck } from './truck.entity';
 import { User } from './user.entity';
 import { UserRoles } from '../lib/interfaces/user-role.enum';
+import { DeliveryTypes } from '../lib/interfaces/delivery-type.enum';
 
 @Entity()
 export class Delivery extends BaseEntity {
@@ -29,10 +31,17 @@ export class Delivery extends BaseEntity {
   })
   status: DeliveryStatus;
 
+  @Column({
+    type: 'enum',
+    enum: DeliveryTypes,
+  })
+  type: DeliveryTypes;
+
   @Column('bool', { default: false })
   isDone: boolean;
 
   @Column('float')
+  @Min(0)
   volume: number;
 
   @Column('datetime')
@@ -60,12 +69,23 @@ export class Delivery extends BaseEntity {
     return user.role === UserRoles.ADMIN || user.role === UserRoles.MANAGER;
   }
 
+  @BeforeInsert()
+  public async createActions(): Promise<void> {
+    if (this.type === DeliveryTypes.OUTCOMING) {
+      this.stock.removeGoods(this.volume);
+      await this.stock.save();
+    }
+  }
+
   @AfterUpdate()
   public async doneActions(): Promise<void> {
     if (this.isDone && this.status !== DeliveryStatus.CONFIRMED) return;
 
-    this.stock.addGoods(this.volume);
-    await this.stock.save();
+    if (this.type === DeliveryTypes.INCOMING) {
+      this.stock.addGoods(this.volume);
+      await this.stock.save();
+    }
+
     this.status = DeliveryStatus.DONE;
     this.save().then();
   }
@@ -74,7 +94,6 @@ export class Delivery extends BaseEntity {
   public checkIsDone(): void {
     if (this.isDone)
       throw new BadRequestException('Delivery is done, cannot be changed');
-    if (this.status === DeliveryStatus.DONE)
-      this.isDone = true;
+    if (this.status === DeliveryStatus.DONE) this.isDone = true;
   }
 }
