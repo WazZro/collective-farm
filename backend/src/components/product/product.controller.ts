@@ -19,5 +19,5 @@ import { ProductService } from './product.service';
 @Feature('Product')
 @Controller('api/v1/products')
 export class ProductController implements CrudController<Product> {
-  public constructor(public service: ProductService) {}
+  constructor(public service: ProductService) {}
 }

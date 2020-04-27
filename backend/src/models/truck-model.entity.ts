@@ -3,17 +3,17 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 @Entity('truck_models')
 export class TruckModel extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @Column()
-  public brand: string;
+  brand: string;
 
   @Column()
-  public model: string;
+  model: string;
 
   @Column('int')
-  public buildYear: number;
+  buildYear: number;
 
   @Column('int')
-  public capacity: number;
+  capacity: number;
 }

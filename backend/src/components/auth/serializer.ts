@@ -4,11 +4,11 @@ import { User } from '../../models/user.entity';
 
 @Injectable()
 export class Serializer extends PassportSerializer {
-  serializeUser(user: User, done: Function): any {
+  public serializeUser(user: User, done: Function): void {
     done(null, user);
   }
 
-  deserializeUser(payload: any, done: Function): any {
+  public deserializeUser(payload: any, done: Function): void {
     done(null, payload);
   }
 }

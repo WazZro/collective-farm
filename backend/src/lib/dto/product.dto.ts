@@ -1,17 +1,33 @@
 /* eslint-disable max-classes-per-file */
+import { IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class ProductCreateDto {
-  public id: number;
+  @IsOptional()
+  @IsNumber()
+  id: number;
 
-  public name: string;
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 
-  public cost: number;
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  cost: number;
 }
 
 export class ProductUpdateDto {
-  public id: number;
+  @IsEmpty()
+  @Transform(() => undefined)
+  id: number;
 
-  public name: string;
+  @IsOptional()
+  @IsString()
+  name: string;
 
-  public cost: number;
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  cost: number;
 }

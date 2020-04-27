@@ -1,35 +1,47 @@
 /* eslint-disable max-classes-per-file */
-import { IsOptional, IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsNumber, Min } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class TruckCreateModel {
   @IsOptional()
-  public id: number;
+  id: number;
 
   @IsNotEmpty()
   @IsString()
-  public brand: string;
+  brand: string;
 
   @IsNotEmpty()
   @IsString()
-  public model: string;
+  model: string;
 
   @IsNotEmpty()
   @IsNumber()
-  public buildYear: number;
+  buildYear: number;
 
   @IsNotEmpty()
   @IsNumber()
-  public capacity: number;
+  @Min(0)
+  capacity: number;
 }
 
 export class TruckUpdateModel {
-  public id: number;
+  @Transform(() => undefined)
+  id?: number;
 
-  public brand: string;
+  @IsOptional()
+  @IsString()
+  brand?: string;
 
-  public model: string;
+  @IsOptional()
+  @IsString()
+  model?: string;
 
-  public buildYear: number;
+  @IsOptional()
+  @IsString()
+  buildYear?: number;
 
-  public capacity: number;
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  capacity?: number;
 }

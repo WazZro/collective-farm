@@ -25,5 +25,5 @@ import { TruckService } from './truck.service';
 @Controller('api/v1/trucks')
 @Feature('Truck')
 export class TruckController implements CrudController<Truck> {
-  public constructor(public service: TruckService) {}
+  constructor(public service: TruckService) {}
 }

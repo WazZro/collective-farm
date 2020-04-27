@@ -24,5 +24,5 @@ import { StockService } from './stock.service';
 @Controller('/api/v1/stocks')
 @Feature('Stock')
 export class StockController implements CrudController<Stock> {
-  public constructor(public service: StockService) {}
+  constructor(public service: StockService) {}
 }

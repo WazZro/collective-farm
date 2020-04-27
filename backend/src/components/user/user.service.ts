@@ -6,7 +6,7 @@ import { User } from '../../models/user.entity';
 
 @Injectable()
 export class UserService extends TypeOrmCrudService<User> {
-  public constructor(@InjectRepository(User) repo: Repository<User>) {
+  constructor(@InjectRepository(User) repo: Repository<User>) {
     super(repo);
   }
 

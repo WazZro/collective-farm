@@ -1,45 +1,88 @@
 /* eslint-disable max-classes-per-file */
+import {
+  IsDate,
+  IsEmpty,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+} from 'class-validator';
+import { Transform } from 'class-transformer';
 import { Product } from '../../models/product.entity';
 import { EntityResolver } from '../decorators/resolver.decorator';
 import { Truck } from '../../models/truck.entity';
 import { User } from '../../models/user.entity';
+import { Stock } from '../../models/stock.entity';
+import { DeliveryStatus } from '../interfaces/delivery-status.enum';
 
 export class DeliveryCreateDto {
-  public id: number;
+  id?: number;
+
+  @IsEmpty()
+  @Transform(() => undefined)
+  status: DeliveryStatus;
+
+  @IsEmpty()
+  @Transform(() => undefined)
+  isDone: boolean;
 
   @EntityResolver(Product)
-  public product: Product;
+  @IsNotEmpty()
+  product: Product;
 
   @EntityResolver(Truck)
-  public truck: Truck;
+  @IsNotEmpty()
+  truck: Truck;
 
   @EntityResolver(User)
-  public driver: User;
+  @IsNotEmpty()
+  driver: User;
 
-  public volume: number;
+  @IsNotEmpty()
+  @EntityResolver(Stock)
+  stock: Stock;
 
-  public startDeliveryDate: Date;
+  @IsNotEmpty()
+  @IsNumber()
+  volume: number;
 
-  public deliveryDate: Date;
+  @IsNotEmpty()
+  @IsDate()
+  deliveryDate: Date;
 }
 
 export class DeliveryUpdateDto {
-  public id: number;
+  @Transform(() => undefined)
+  id?: number;
 
+  @IsEmpty()
+  @Transform(() => undefined)
+  status: DeliveryStatus;
+
+  @IsEmpty()
+  @Transform(() => undefined)
+  isDone: boolean;
+
+  @IsOptional()
   @EntityResolver(Product)
-  public product: Product;
+  product: Product;
 
+  @IsOptional()
   @EntityResolver(Truck)
-  public truck: Truck;
+  truck: Truck;
 
+  @IsOptional()
   @EntityResolver(User)
-  public driver: User;
+  driver: User;
 
-  public status: number;
+  @IsOptional()
+  @EntityResolver(Stock)
+  stock: Stock;
 
-  public volume: number;
+  @IsOptional()
+  @IsNumber()
+  volume: number;
 
-  public startDeliveryDate: Date;
-
-  public deliveryDate: Date;
+  @IsOptional()
+  @IsDate()
+  deliveryDate: Date;
 }

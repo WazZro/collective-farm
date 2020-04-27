@@ -15,6 +15,17 @@ export class AuthController {
     return request.user;
   }
 
+  @Get('logout')
+  @Role(
+    UserRoles.ACCOUNTANT,
+    UserRoles.ADMIN,
+    UserRoles.DRIVER,
+    UserRoles.MANAGER,
+  )
+  public logOut(@Request() request): Promise<void> {
+    return this.authService.logOut(request);
+  }
+
   @Get('me')
   @Role(
     UserRoles.ACCOUNTANT,

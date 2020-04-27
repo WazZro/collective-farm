@@ -6,7 +6,7 @@ import { Product } from '../../models/product.entity';
 
 @Injectable()
 export class ProductService extends TypeOrmCrudService<Product> {
-  public constructor(@InjectRepository(Product) repo: Repository<Product>) {
+  constructor(@InjectRepository(Product) repo: Repository<Product>) {
     super(repo);
   }
 }

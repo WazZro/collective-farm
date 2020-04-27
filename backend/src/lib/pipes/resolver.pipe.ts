@@ -32,7 +32,6 @@ export class EntityResolver extends ValidationPipe {
     };
 
     const validatedData = await super.transform(value, newMetadata);
-    console.log(validatedData);
     const resolvers: Map<string, any> = Reflect.getMetadata(
       RESOLVER_KEY,
       validatedData,

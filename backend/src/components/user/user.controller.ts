@@ -19,7 +19,7 @@ import { UserService } from './user.service';
 @Controller('/api/v1/users')
 @Feature('User')
 export class UserController implements CrudController<User> {
-  public constructor(public service: UserService) {}
+  constructor(public service: UserService) {}
 
   private get base(): CrudController<User> {
     return this;

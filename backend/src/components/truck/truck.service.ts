@@ -6,7 +6,7 @@ import { Truck } from '../../models/truck.entity';
 
 @Injectable()
 export class TruckService extends TypeOrmCrudService<Truck> {
-  public constructor(@InjectRepository(Truck) repo: Repository<Truck>) {
+  constructor(@InjectRepository(Truck) repo: Repository<Truck>) {
     super(repo);
   }
 }

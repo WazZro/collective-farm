@@ -1,21 +1,31 @@
 /* eslint-disable max-classes-per-file */
+import { IsNotEmpty, IsNumber, IsOptional, Min } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { Product } from '../../models/product.entity';
 import { EntityResolver } from '../decorators/resolver.decorator';
 
 export class StockCreateDto {
-  public id: number;
+  id?: number;
 
+  @IsNotEmpty()
   @EntityResolver(Product)
-  public product: Product;
+  product: Product;
 
-  public capacity: number;
+  @IsNumber()
+  @Min(0)
+  capacity: number;
 }
 
 export class StockUpdateDto {
-  public id: number;
+  @Transform(() => undefined)
+  id: number;
 
+  @IsOptional()
   @EntityResolver(Product)
-  public product: Product;
+  product: Product;
 
-  public capacity: number;
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  capacity: number;
 }

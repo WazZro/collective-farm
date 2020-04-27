@@ -1,11 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import {
-  IsOptional,
-  IsNumber,
-  IsString,
-  IsNotEmpty,
-  IsArray,
-} from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { TruckModel } from '../../models/truck-model.entity';
 import { EntityResolver } from '../decorators/resolver.decorator';
 import { User } from '../../models/user.entity';
@@ -13,30 +8,36 @@ import { User } from '../../models/user.entity';
 export class TruckCreateDto {
   @IsOptional()
   @IsNumber()
-  public id: number;
+  id?: number;
 
   @IsNotEmpty()
   @IsString()
-  public registrationNumber: string;
+  registrationNumber: string;
 
   @IsNotEmpty()
   @EntityResolver(TruckModel)
-  public model: TruckModel;
+  model: TruckModel;
 
   @IsOptional()
   @IsArray()
   @EntityResolver(User)
-  public drivers: User[];
+  drivers: User[];
 }
 
 export class TruckUpdateDto {
-  public id: number;
+  @Transform(() => undefined)
+  id: number;
 
-  public registrationNumber: string;
+  @IsOptional()
+  @IsString()
+  registrationNumber: string;
 
+  @IsOptional()
   @EntityResolver(TruckModel)
-  public model: TruckModel;
+  model: TruckModel;
 
+  @IsOptional()
+  @IsArray()
   @EntityResolver(User)
-  public drivers: User[];
+  drivers: User[];
 }

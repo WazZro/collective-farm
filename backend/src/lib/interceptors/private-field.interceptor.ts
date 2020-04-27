@@ -24,7 +24,7 @@ export class PrivateFieldInterceptor implements NestInterceptor {
     const user: User = request.user;
     const body = request.body;
 
-    if (user.role === UserRoles.ADMIN) return next.handle();
+    if (user?.role === UserRoles.ADMIN) return next.handle();
     if (body) PrivateFieldInterceptor.privateFieldInputProcess(body, user);
     return this.streamProcess(next.handle(), user);
   }
@@ -56,7 +56,7 @@ export class PrivateFieldInterceptor implements NestInterceptor {
     if (privateFieldMetadatas) {
       for (const metadata of privateFieldMetadatas) {
         if (!metadata.meta) continue;
-        const canEdit = metadata.meta.allowRoles.includes(user.role);
+        const canEdit = metadata.meta.allowRoles.includes(user?.role);
 
         if (!canEdit) Reflect.deleteProperty(value, metadata.key);
       }
@@ -71,7 +71,7 @@ export class PrivateFieldInterceptor implements NestInterceptor {
     if (privateFieldMeta)
       for (const metadata of privateFieldMeta) {
         if (!metadata.meta || metadata.meta.canSee) continue;
-        const canSee = metadata.meta.allowRoles.includes(user.role);
+        const canSee = metadata.meta.allowRoles.includes(user?.role);
 
         if (!canSee) Reflect.deleteProperty(value, metadata.key);
       }

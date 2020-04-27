@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Request } from 'express';
 import { UserService } from '../user/user.service';
 import { User } from '../../models/user.entity';
 
@@ -12,5 +13,14 @@ export class AuthService {
       return requestedUser;
 
     return null;
+  }
+
+  public logOut(request: Request): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      request.session.destroy((err) => {
+        if (err) return reject(err);
+        return resolve();
+      });
+    });
   }
 }

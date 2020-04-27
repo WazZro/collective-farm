@@ -18,47 +18,47 @@ import { UserRoles } from '../lib/interfaces/user-role.enum';
 @Index(['firstName', 'lastName'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @Column()
-  public firstName: string;
+  firstName: string;
 
   @Column()
-  public lastName: string;
+  lastName: string;
 
   @Column({ nullable: true })
-  public middleName: string;
+  middleName: string;
 
   @Column()
   @Index({ unique: true })
-  public phone: string;
+  phone: string;
 
   @Column('date')
-  public birthDate: Date;
+  birthDate: Date;
 
   @Column('date')
-  public startWorkDate: Date;
+  startWorkDate: Date;
 
   @Column('date', { nullable: true })
-  public endWorkDate: Date;
+  endWorkDate: Date;
 
   @Column()
   @Exclude({ toPlainOnly: true })
   private password: string;
 
   @CreateDateColumn()
-  public createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  public updatedAt: Date;
+  updatedAt: Date;
 
   @Column({
     type: 'enum',
     enum: UserRoles,
   })
-  public role: UserRoles;
+  role: UserRoles;
 
-  public constructor(dto?: UserDto) {
+  constructor(dto?: UserDto) {
     super();
     if (dto) Object.assign(this, dto);
   }

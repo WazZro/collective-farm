@@ -8,25 +8,28 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm';
+import { Min } from 'class-validator';
 import { Product } from './product.entity';
 
 @Entity()
 export class Stock extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @Column('int')
-  public capacity: number;
+  @Min(0)
+  capacity: number;
 
   @Column('int')
-  public congestion: number;
+  @Min(0)
+  congestion: number;
 
   @ManyToOne(() => Product, {
     eager: true,
     nullable: false,
     onDelete: 'CASCADE',
   })
-  public product: Product;
+  product: Product;
 
   @BeforeInsert()
   @BeforeUpdate()
@@ -40,5 +43,12 @@ export class Stock extends BaseEntity {
       throw new BadRequestException('Congestion cannot be more than capacity');
 
     this.congestion += amount;
+  }
+
+  public removeGoods(amount: number): void {
+    if (this.congestion - amount < 0)
+      throw new BadRequestException('Not enough goods on the stock');
+
+    this.congestion -= amount;
   }
 }
