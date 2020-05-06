@@ -25,7 +25,7 @@ export class Truck extends BaseEntity {
   })
   model: TruckModel;
 
-  @ManyToMany(() => User, { eager: true })
+  @ManyToMany(() => User, user => user.trucks, { eager: true })
   @JoinTable()
   drivers: User[];
 }

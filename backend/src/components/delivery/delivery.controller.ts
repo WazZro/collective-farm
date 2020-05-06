@@ -29,10 +29,11 @@ import { UserRoles } from '../../lib/interfaces/user-role.enum';
   },
   query: {
     join: {
-      truck: { eager: true },
-      driver: { eager: true },
-      product: { eager: true },
-      stock: { eager: true },
+      truck: { eager: true, alias: 'tr' },
+      driver: { eager: true, alias: 'dr' },
+      product: { eager: true, alias: 'pr' },
+      stock: { eager: true, alias: 'st', exclude: ['product'] },
+      'tr.model': { eager: true },
     },
   },
 })

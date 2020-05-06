@@ -15,6 +15,11 @@ import { UserService } from './user.service';
   routes: {
     exclude: ['createManyBase', 'replaceOneBase'],
   },
+  query: {
+    join: {
+      trucks: {},
+    }
+  },
 })
 @Controller('/api/v1/users')
 @Feature('User')

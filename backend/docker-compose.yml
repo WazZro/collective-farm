@@ -4,6 +4,7 @@ services:
   app:
     build: ./
     command: ['']
+    image: wazzro/coll-back
     env_file:
       - .env
     environment:

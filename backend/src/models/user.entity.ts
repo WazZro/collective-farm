@@ -9,10 +9,12 @@ import {
   Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from 'typeorm';
 import { ARGON_HASHING_THREADS, ARGON_HASHING_TIME } from '../lib/constants';
 import { UserDto } from '../lib/dto/user.dto';
 import { UserRoles } from '../lib/interfaces/user-role.enum';
+import { Truck } from './truck.entity';
 
 @Entity('users')
 @Index(['firstName', 'lastName'])
@@ -57,6 +59,9 @@ export class User extends BaseEntity {
     enum: UserRoles,
   })
   role: UserRoles;
+
+  @ManyToMany(() => Truck, truck => truck.drivers)
+  trucks: Truck[];
 
   constructor(dto?: UserDto) {
     super();

@@ -1,18 +1,20 @@
 /* eslint-disable max-classes-per-file */
+import { Transform, Type } from 'class-transformer';
 import {
   IsDate,
   IsEmpty,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
 } from 'class-validator';
-import { Transform } from 'class-transformer';
 import { Product } from '../../models/product.entity';
-import { EntityResolver } from '../decorators/resolver.decorator';
+import { Stock } from '../../models/stock.entity';
 import { Truck } from '../../models/truck.entity';
 import { User } from '../../models/user.entity';
-import { Stock } from '../../models/stock.entity';
+import { EntityResolver } from '../decorators/resolver.decorator';
 import { DeliveryStatus } from '../interfaces/delivery-status.enum';
+import { DeliveryTypes } from '../interfaces/delivery-type.enum';
 
 export class DeliveryCreateDto {
   id?: number;
@@ -20,6 +22,10 @@ export class DeliveryCreateDto {
   @IsEmpty()
   @Transform(() => undefined)
   status: DeliveryStatus;
+
+  @IsNotEmpty()
+  @IsEnum(DeliveryTypes)
+  type: DeliveryTypes;
 
   @IsEmpty()
   @Transform(() => undefined)
@@ -46,6 +52,7 @@ export class DeliveryCreateDto {
   volume: number;
 
   @IsNotEmpty()
+  @Type(() => Date)
   @IsDate()
   deliveryDate: Date;
 }
@@ -83,6 +90,7 @@ export class DeliveryUpdateDto {
   volume: number;
 
   @IsOptional()
+  @Type(() => Date)
   @IsDate()
   deliveryDate: Date;
 }

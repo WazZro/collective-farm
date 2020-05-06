@@ -47,16 +47,16 @@ export class Delivery extends BaseEntity {
   @Column('datetime')
   deliveryDate: Date;
 
-  @ManyToOne(() => Truck)
+  @ManyToOne(() => Truck, { eager: true })
   truck: Truck;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   driver: User;
 
-  @ManyToOne(() => Product)
+  @ManyToOne(() => Product, { eager: true })
   product: Product;
 
-  @ManyToOne(() => Stock)
+  @ManyToOne(() => Stock, { eager: true })
   stock: Stock;
 
   @CreateDateColumn()
@@ -79,7 +79,7 @@ export class Delivery extends BaseEntity {
 
   @AfterUpdate()
   public async doneActions(): Promise<void> {
-    if (this.isDone && this.status !== DeliveryStatus.CONFIRMED) return;
+    if (!this.isDone && this.status !== DeliveryStatus.CONFIRMED) return;
 
     if (this.type === DeliveryTypes.INCOMING) {
       this.stock.addGoods(this.volume);
