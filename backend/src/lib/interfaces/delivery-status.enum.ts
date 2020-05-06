@@ -4,5 +4,4 @@ export enum DeliveryStatus {
   WAIT_CONFIRM,
   CONFIRMED,
   DONE,
-  DONE_FAILED,
 }
