@@ -1,0 +1,26 @@
+<h3>Меню</h3>
+<div class="menu">
+  <mat-card
+    class="menu-element"
+    *ngFor="let item of menu"
+    [routerLink]="[item.route]"
+  >
+    {{ item.label }}
+  </mat-card>
+</div>
+<hr>
+<div style="margin-top: 25px">
+  <h3>Ожидают подтверждения</h3>
+  <app-delivery-table
+    [canChangeStatus]="true"
+    [request]="needConfirmDeliveryRequest"
+  ></app-delivery-table>
+</div>
+<hr>
+<div style="margin-top: 25px">
+  <h3>В пути</h3>
+  <app-delivery-table
+    [canChangeStatus]="false"
+    [request]="transitDeliveryRequest"
+  ></app-delivery-table>
+</div>

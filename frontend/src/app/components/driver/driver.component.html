@@ -1,0 +1,57 @@
+<div style="margin-bottom: 50px;">
+  <h2>Мои грузовые машины</h2>
+  <mat-table #autoTable [dataSource]="driverTrucks">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="registrationNumber">
+      <mat-header-cell *matHeaderCellDef> Госномер </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.registrationNumber }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="brand">
+      <mat-header-cell *matHeaderCellDef> Производитель </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.model.brand }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef> Модель </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.model.model }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="buildYear">
+      <mat-header-cell *matHeaderCellDef> Год сборки </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.model.buildYear }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="capacity">
+      <mat-header-cell *matHeaderCellDef> Вместимость </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.model.capacity }} </mat-cell>
+    </ng-container>
+
+    <!--    <ng-container matColumnDef="actions">-->
+    <!--      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>-->
+    <!--      <mat-cell *matCellDef="let row">-->
+    <!--        <button (click)="delete(row.id)" mat-icon-button aria-label="Remove">-->
+    <!--          <mat-icon>delete_forever</mat-icon>-->
+    <!--        </button>-->
+    <!--        <button (click)="update(row)" mat-icon-button aria-label="Update">-->
+    <!--          <mat-icon>update</mat-icon>-->
+    <!--        </button>-->
+    <!--      </mat-cell>-->
+    <!--    </ng-container>-->
+
+    <mat-header-row *matHeaderRowDef="columnTruckList"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnTruckList"></mat-row>
+  </mat-table>
+</div>
+<div>
+  <h2>Мои перевозки</h2>
+  <app-delivery-table
+    *ngIf="deliveryRequest"
+    [canChangeStatus]="true"
+    [request]="deliveryRequest"
+  ></app-delivery-table>
+</div>

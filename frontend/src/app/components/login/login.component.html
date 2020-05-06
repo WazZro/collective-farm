@@ -1,0 +1,29 @@
+<div *ngIf="loading" class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form class="form" [formGroup]="loginForm" (ngSubmit)="logIn()">
+  <mat-form-field>
+    <mat-label>Почта или телефон</mat-label>
+    <input
+      matInput
+      type="text"
+      name="login"
+      formControlName="login"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Пароль</mat-label>
+    <input
+      matInput
+      type="password"
+      name="password"
+      formControlName="password"
+    />
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">
+    Войти
+  </button>
+</form>

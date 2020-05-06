@@ -1,0 +1,68 @@
+<div *ngIf="loading" class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef> Тип </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ typeList.get(row.type + '') }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Статус </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ statusList.get(row.status) }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="volume">
+    <mat-header-cell *matHeaderCellDef> Объем </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.volume }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="product">
+    <mat-header-cell *matHeaderCellDef> Продукт </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.product.name }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="stock">
+    <mat-header-cell *matHeaderCellDef> Склад </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.stock.name }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="truck">
+    <mat-header-cell *matHeaderCellDef> Машина </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.truck.registrationNumber }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="driver">
+    <mat-header-cell *matHeaderCellDef> Машина </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.driver.fullName }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button (click)="delete(row)" mat-icon-button aria-label="Remove">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button (click)="update(row)" mat-icon-button aria-label="Update">
+        <mat-icon>update</mat-icon>
+      </button>
+      <button *ngIf="canChangeStatus" (click)="changeStatus(row)" mat-icon-button aria-label="Status">
+        <mat-icon>ballot</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columnList"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columnList"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="pageLimits"> </mat-paginator>

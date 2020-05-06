@@ -1,0 +1,96 @@
+<h1 mat-dialog-title>Создание пользователя</h1>
+<form [formGroup]="deliveryCreateForm" (ngSubmit)="create()">
+  <div mat-dialog-content>
+    <div class="entity-form-modal">
+      <ng-select
+        formControlName="type"
+        [items]="deliveryTypeMap | keyvalue"
+        [multiple]="false"
+        bindValue="key"
+        bindLabel="value"
+        placeholder="Тип доставки"
+      >
+      </ng-select>
+
+      <ng-select
+        formControlName="product"
+        [items]="productStream | async"
+        [typeahead]="productInputStream"
+        [multiple]="false"
+        bindLabel="name"
+        placeholder="Продукт"
+      >
+      </ng-select>
+
+      <mat-form-field>
+        <mat-label>Объем</mat-label>
+        <input
+          matInput
+          type="number"
+          name="volume"
+          formControlName="volume"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Дата доставки</mat-label>
+        <input
+          matInput
+          [matDatepicker]="deliveryDate"
+          formControlName="deliveryDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="deliveryDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #deliveryDate></mat-datepicker>
+      </mat-form-field>
+
+      <ng-select
+        formControlName="stock"
+        [items]="stockStream | async"
+        [multiple]="false"
+        bindLabel="name"
+        placeholder="Склад"
+      >
+      </ng-select>
+
+      <ng-select
+        formControlName="truck"
+        [items]="truckStream | async"
+        [multiple]="false"
+        bindLabel="name"
+        placeholder="Грузовик"
+        appendTo="body"
+      >
+        <ng-template ng-option-tmp let-item="item">
+          <div>{{ item.name }}, вместимость: {{ item.model.capacity }}</div>
+        </ng-template>
+      </ng-select>
+
+      <ng-select
+        formControlName="driver"
+        [items]="userStream | async"
+        [multiple]="false"
+        bindLabel="fullName"
+        placeholder="Водитель"
+        appendTo="body"
+      >
+      </ng-select>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="modalClose()">
+      Отмена
+    </button>
+    <button
+      mat-button
+      type="submit"
+      cdkFocusInitial
+      [disabled]="deliveryCreateForm.invalid"
+    >
+      Создать
+    </button>
+  </div>
+</form>

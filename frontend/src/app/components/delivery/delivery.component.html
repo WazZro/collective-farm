@@ -1,0 +1,12 @@
+<div>
+  <div class="margin-5px-line">
+    <label class="mat-headline">Поставки</label>
+    <div class="grid-list">
+      <button mat-flat-button color="primary" (click)="create()">
+        Создать поставку
+      </button>
+    </div>
+  </div>
+
+  <app-delivery-table #tableComponent [canChangeStatus]="true" [request]="deliveryRequest"></app-delivery-table>
+</div>
