@@ -1,13 +1,13 @@
 import { Paginable } from '../interfaces/paginable.interface';
-import { ApiRequestService } from '../services/api.service';
+import { ApiRequestService } from '../../services/api.service';
 
 export abstract class AbstractEntityService<T> {
   protected apiService: ApiRequestService;
   protected entityName: string;
   protected apiVersion: number;
-  private transform: any;
+  private readonly transform: { type: new () => T };
 
-  constructor(
+  protected constructor(
     apiService: ApiRequestService,
     entityName: string,
     apiVersion: number,
@@ -70,5 +70,5 @@ export abstract class AbstractEntityService<T> {
       entityName: this.entityName,
       entityId,
     });
-  }
+  }d
 }

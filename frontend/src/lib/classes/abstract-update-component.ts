@@ -1,10 +1,11 @@
-import { AbstractEntityService } from './AbstractEntityService';
+import { AbstractEntityService } from './abstract-entity-service';
 import { MatDialogRef } from '@angular/material/dialog';
 
-export abstract class AbstractCreateComponent<T> {
+export abstract class AbstractUpdateComponent<T> {
   public constructor(
+    public entity: T,
     protected service: AbstractEntityService<T>,
-    protected dialogRef: MatDialogRef<AbstractCreateComponent<T>>,
+    protected dialogRef: MatDialogRef<AbstractUpdateComponent<T>>,
   ) {}
 
   /**
@@ -18,5 +19,5 @@ export abstract class AbstractCreateComponent<T> {
   /**
    * Create entity method
    */
-  public abstract create(): void | Promise<void>;
+  public abstract update(): void | Promise<void>;
 }

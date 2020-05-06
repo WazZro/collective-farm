@@ -62,4 +62,5 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
  */
 
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
-import 'reflect-metadata'
+import 'reflect-metadata';
+import 'core-js/features/reflect';

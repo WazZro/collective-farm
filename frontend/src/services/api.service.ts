@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { plainToClass, classToPlain } from 'class-transformer';
-import { GetManyEntityInterface } from '../interfaces/get-many.interface';
-import { GetOneEntityInterface } from '../interfaces/get-one.interface';
-import { CreateEntityInterface } from '../interfaces/create.interface';
-import { UpdateEntityInterface } from '../interfaces/update.interface';
-import { DeleteEntityInterface } from '../interfaces/delete.interface';
-import { Paginable } from '../interfaces/paginable.interface';
+import { GetManyEntityInterface } from '../lib/interfaces/get-many.interface';
+import { GetOneEntityInterface } from '../lib/interfaces/get-one.interface';
+import { CreateEntityInterface } from '../lib/interfaces/create.interface';
+import { UpdateEntityInterface } from '../lib/interfaces/update.interface';
+import { DeleteEntityInterface } from '../lib/interfaces/delete.interface';
+import { Paginable } from '../lib/interfaces/paginable.interface';
 import * as Fingerprint from 'fingerprintjs2';
-import { environment } from '../../environments/environment';
+import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiRequestService {
@@ -27,9 +28,7 @@ export class ApiRequestService {
    * @param data data for get request
    */
   public async getMany<T>(data: GetManyEntityInterface<T>): Promise<T[]> {
-    let query = `${this.getServiceUrl(data.apiVersion)}/${
-      data.entityName
-    }`;
+    let query = `${this.getServiceUrl(data.apiVersion)}/${data.entityName}`;
 
     if (data.query) query = query.concat(`?${data.query}`);
 
@@ -56,9 +55,7 @@ export class ApiRequestService {
   public async getManyInPages<T>(
     data: GetManyEntityInterface<T>,
   ): Promise<Paginable<T>> {
-    let query = `${this.getServiceUrl(data.apiVersion)}/${
-      data.entityName
-    }`;
+    let query = `${this.getServiceUrl(data.apiVersion)}/${data.entityName}`;
 
     if (!data.query.includes('page'))
       throw new Error('Page has not been set in query');
@@ -80,9 +77,9 @@ export class ApiRequestService {
    * @param data data for get request
    */
   public async getOne<T>(data: GetOneEntityInterface<T>): Promise<T> {
-    let query = `${this.getServiceUrl(data.apiVersion)}/${
-      data.entityName
-    }/${data.entityId}`;
+    let query = `${this.getServiceUrl(data.apiVersion)}/${data.entityName}/${
+      data.entityId
+    }`;
 
     if (data.query) query = query.concat(`?${data.query}`);
 
@@ -102,9 +99,7 @@ export class ApiRequestService {
    * @param data data for create
    */
   public async createOne<T>(data: CreateEntityInterface<T>): Promise<T> {
-    const query = `${this.getServiceUrl(data.apiVersion)}/${
-      data.entityName
-    }`;
+    const query = `${this.getServiceUrl(data.apiVersion)}/${data.entityName}`;
 
     if (data.transform && data.transform.type) {
       data.body = classToPlain(data.body) as any;
@@ -126,9 +121,9 @@ export class ApiRequestService {
    * @param data data for updating
    */
   public async updateOne<T>(data: UpdateEntityInterface<T>): Promise<T> {
-    const query = `${this.getServiceUrl(data.apiVersion)}/${
-      data.entityName
-    }/${data.entityId}`;
+    const query = `${this.getServiceUrl(data.apiVersion)}/${data.entityName}/${
+      data.entityId
+    }`;
 
     const response = await this.http
       .patch<any>(query, data.body, {
@@ -142,9 +137,9 @@ export class ApiRequestService {
   }
 
   public async delete<T>(data: DeleteEntityInterface<T>): Promise<T> {
-    const query = `${this.getServiceUrl(data.apiVersion)}/${
-      data.entityName
-    }/${data.entityId}`;
+    const query = `${this.getServiceUrl(data.apiVersion)}/${data.entityName}/${
+      data.entityId
+    }`;
 
     const response = await this.http
       .delete<any>(query, {
@@ -170,12 +165,26 @@ export class ApiRequestService {
       },
     });
 
-    const values = components.map(component => component.value);
+    const values = components.map((component) => component.value);
     console.log('fingerprint hash components', components);
 
     return (this.fingerprint = String(
       Fingerprint.x64hash128(values.join(''), 31),
     ));
+  }
+
+  public createRequest<T>(data: {
+    method: 'get' | 'post' | 'patch' | 'delete';
+    url: string;
+    body?: unknown;
+    params?: any;
+  }): Observable<T> {
+    // const headers = new HttpHeaders();\
+    return this.http.request<T>(data.method, data.url, {
+      withCredentials: true,
+      params: data.params,
+      body: data.body,
+    });
   }
 
   private getServiceUrl(apiVersion: number): string {

@@ -1,11 +1,18 @@
 import { Type } from 'class-transformer';
 
+export enum UserRoles {
+  ADMIN = 'admin',
+  MANAGER = 'manager',
+  DRIVER = 'driver',
+  ACCOUNTANT = 'accountant',
+}
+
 export class User {
   id?: number;
   firstName: string;
   lastName: string;
   middleName?: string;
-  roles: any[];
+  role: UserRoles;
   password: string;
   phone: string;
 

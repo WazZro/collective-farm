@@ -8,7 +8,7 @@ import {
   startWith,
   switchMap,
 } from 'rxjs/operators';
-import { AbstractEntityService } from '../classes/AbstractEntityService';
+import { AbstractEntityService } from '../classes/abstract-entity-service';
 
 export function getEntityStreamNew<T>(options: {
   formControlStream: Observable<string>;

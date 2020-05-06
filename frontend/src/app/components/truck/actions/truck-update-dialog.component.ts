@@ -3,13 +3,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { AbstractUpdateComponent } from '../../../../lib/classes/AbstractUpdateComponent';
-import { TruckModel } from '../../../../lib/models/truck-model.model';
-import { Truck } from '../../../../lib/models/truck.model';
-import { User } from '../../../../lib/models/user.model';
-import { TruckModelService } from '../../../../lib/services/truck-model.service';
-import { TruckService } from '../../../../lib/services/truck.service';
-import { UserService } from '../../../../lib/services/user.service';
+import { AbstractUpdateComponent } from '../../../../lib/classes/abstract-update-component';
+import { TruckModel } from '../../../../models/truck-model.model';
+import { Truck } from '../../../../models/truck.model';
+import { User } from '../../../../models/user.model';
+import { TruckModelService } from '../../../../services/truck-model.service';
+import { TruckService } from '../../../../services/truck.service';
+import { UserService } from '../../../../services/user.service';
 import {
   getDifferenceBetweenObjects,
   getEntityStreamNew,

@@ -37,6 +37,18 @@
         />
       </mat-form-field>
 
+      <ng-select
+        name="role"
+        formControlName="role"
+        [items]="roleList | keyvalue"
+        [multiple]="false"
+        bindValue="key"
+        bindLabel="value"
+        placeholder="Роль"
+        [searchable]="false"
+      >
+      </ng-select>
+
       <mat-form-field>
         <mat-label>Дата рождения</mat-label>
         <input

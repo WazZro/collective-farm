@@ -33,7 +33,14 @@
         <mat-header-cell *matHeaderCellDef> Телефон </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.phone }} </mat-cell>
       </ng-container>
-      <!-- 
+
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef> Роль </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ roleList.get(row.role) }} </mat-cell>
+      </ng-container>
+
+
+      <!--
       <ng-container matColumnDef="lastName">
         <mat-header-cell *matHeaderCellDef> Фамилия </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.lastName }} </mat-cell>

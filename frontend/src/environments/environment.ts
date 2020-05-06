@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'https://colhoz-wazzro.cloud.okteto.net/api',
+  API: 'http://dev.zolotoykod.ru:3000/api',
 };
 
 /*

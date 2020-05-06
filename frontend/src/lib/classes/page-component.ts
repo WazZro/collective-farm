@@ -1,54 +1,55 @@
-import { cloneDeep } from 'lodash';
-import { Paginable } from '../interfaces/paginable.interface';
-import { RequestQueryBuilder } from '@nestjsx/crud-request';
-import { AbstractEntityService } from './AbstractEntityService';
-import { MatPaginator } from '@angular/material/paginator';
 import { AfterViewInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
+import { RequestQueryBuilder } from '@nestjsx/crud-request';
+import { cloneDeep } from 'lodash';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Paginable } from '../interfaces/paginable.interface';
+import { AbstractEntityService } from './abstract-entity-service';
 
 export abstract class AbstractPageComponent<T>
   implements AfterViewInit, OnDestroy {
-  protected static readonly DEFAULT_PAGE = 1;
-  protected static readonly DEFAULT_LIMIT = 25;
+  static readonly DEFAULT_PAGE = 1;
+  static readonly DEFAULT_LIMIT = 5;
 
-  public filters = new Map<string, any>();
-  public orderBy = { field: 'id', order: 'ASC' };
-  public data: T[];
+  filters = new Map<string, any>();
+  orderBy = { field: 'id', order: 'ASC' };
+  data: T[];
 
-  public currentPage = AbstractPageComponent.DEFAULT_PAGE;
-  public currentLimit = AbstractPageComponent.DEFAULT_LIMIT;
-  public pages: any[];
-  public pageInfo: Paginable<T> = {
+  currentPage = AbstractPageComponent.DEFAULT_PAGE;
+  currentLimit = AbstractPageComponent.DEFAULT_LIMIT;
+  pages: any[];
+  pageInfo: Paginable<T> = {
     total: 0,
     count: 0,
     data: [],
     page: 0,
     pageCount: 0,
   };
-  public pageLimits = [1, 5, 25, 50, 100];
+  pageLimits = [1, 5, 25, 50, 100];
 
-  public paginator: MatPaginator;
-  public pageChangeSubscription: Subscription;
+  paginator: MatPaginator;
+  pageChangeSubscription: Subscription;
 
   protected defaultQueryBuilder: RequestQueryBuilder;
   protected query: RequestQueryBuilder;
   protected service: AbstractEntityService<T>;
 
-  constructor(
+  protected constructor(
     service: AbstractEntityService<T>,
-    defaultQueryBuilder: RequestQueryBuilder,
+    defaultQueryBuilder?: RequestQueryBuilder,
   ) {
     this.service = service;
-    this.defaultQueryBuilder = defaultQueryBuilder;
-    this.query = cloneDeep(defaultQueryBuilder);
+    if (defaultQueryBuilder) {
+      this.defaultQueryBuilder = defaultQueryBuilder;
+      this.query = cloneDeep(defaultQueryBuilder);
+    }
   }
 
   public ngAfterViewInit(): void {
     this.pageChangeSubscription = this.paginator?.page
       .pipe(
-        tap(pageEvent => {
+        tap((pageEvent) => {
           console.log(pageEvent);
           this.setPageLimit(pageEvent.pageSize);
           this.setPage(pageEvent.pageIndex + 1);
@@ -63,6 +64,11 @@ export abstract class AbstractPageComponent<T>
     this.pageChangeSubscription?.unsubscribe();
   }
 
+  public setRequestBuilder(builder: RequestQueryBuilder): void {
+    this.defaultQueryBuilder = builder;
+    this.query = cloneDeep(builder);
+  }
+
   /**
    * Method for delete entity
    * @param id - entity id
@@ -74,7 +80,6 @@ export abstract class AbstractPageComponent<T>
       this.loadData();
     } catch (e) {
       console.error(e);
-      // processUikitError(e);
     }
   }
 
@@ -128,18 +133,6 @@ export abstract class AbstractPageComponent<T>
       return data.data;
     }
   }
-
-  /**
-   * Method for create entity
-   * @param form - NgForm
-   */
-  public abstract create(form: NgForm): void | Promise<void>;
-
-  /**
-   * Method for update entity
-   * @param id - id of entity
-   */
-  public abstract update(entity: number | string | T): void | Promise<void>;
 
   /**
    * Method for set loading indicator

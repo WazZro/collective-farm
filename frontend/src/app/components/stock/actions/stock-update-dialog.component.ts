@@ -3,17 +3,17 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { AbstractUpdateComponent } from '../../../../lib/classes/AbstractUpdateComponent';
-import { Stock } from '../../../../lib/models/stock.model';
-import { TruckModel } from '../../../../lib/models/truck-model.model';
-import { User } from '../../../../lib/models/user.model';
-import { StockService } from '../../../../lib/services/stock.service';
+import { AbstractUpdateComponent } from '../../../../lib/classes/abstract-update-component';
+import { Stock } from '../../../../models/stock.model';
+import { TruckModel } from '../../../../models/truck-model.model';
+import { User } from '../../../../models/user.model';
+import { StockService } from '../../../../services/stock.service';
 import {
   getDifferenceBetweenObjects,
   getEntityStreamNew,
 } from '../../../../lib/utils';
-import { ProductService } from '../../../../lib/services/product.service';
-import { Product } from '../../../../lib/models/product.model';
+import { ProductService } from '../../../../services/product.service';
+import { Product } from '../../../../models/product.model';
 
 @Component({
   selector: 'app-stock-update-dialog',

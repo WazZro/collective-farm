@@ -3,11 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductCreateDialogComponent } from './actions/product-create-dialog.component';
 import { RequestQueryBuilder } from '@nestjsx/crud-request';
 import { MatPaginator } from '@angular/material/paginator';
-import { AbstractPageComponent } from '../../../lib/classes/PageComponent';
+import { AbstractPageComponent } from '../../../lib/classes/page-component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductUpdateDialogComponent } from './actions/product-update-dialog.component';
-import { ProductService } from '../../../lib/services/product.service';
-import { Product } from '../../../lib/models/product.model';
+import { ProductService } from '../../../services/product.service';
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-product',

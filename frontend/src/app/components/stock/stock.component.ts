@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractPageComponent } from '../../../lib/classes/PageComponent';
-import { Stock } from '../../../lib/models/stock.model';
-import { StockService } from '../../../lib/services/stock.service';
+import { AbstractPageComponent } from '../../../lib/classes/page-component';
+import { Stock } from '../../../models/stock.model';
+import { StockService } from '../../../services/stock.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestQueryBuilder } from '@nestjsx/crud-request';

@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { AbstractCreateComponent } from '../../../../lib/classes/AbstractCreateComponent';
-import { Product } from '../../../../lib/models/product.model';
-import { Stock } from '../../../../lib/models/stock.model';
-import { ProductService } from '../../../../lib/services/product.service';
-import { StockService } from '../../../../lib/services/stock.service';
+import { AbstractCreateComponent } from '../../../../lib/classes/abstract-create-component';
+import { Product } from '../../../../models/product.model';
+import { Stock } from '../../../../models/stock.model';
+import { ProductService } from '../../../../services/product.service';
+import { StockService } from '../../../../services/stock.service';
 import { getEntityStreamNew } from '../../../../lib/utils';
 
 @Component({

@@ -1,12 +1,12 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { User } from '../../../lib/models/user.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserCreateDialogComponent } from './actions/user-create-dialog.component';
-import { RequestQueryBuilder } from '@nestjsx/crud-request';
 import { MatPaginator } from '@angular/material/paginator';
-import { AbstractPageComponent } from '../../../lib/classes/PageComponent';
-import { UserService } from '../../../lib/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RequestQueryBuilder } from '@nestjsx/crud-request';
+import { AbstractPageComponent } from '../../../lib/classes/page-component';
+import { User, UserRoles } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
+import { UserCreateDialogComponent } from './actions/user-create-dialog.component';
 import { UserUpdateDialogComponent } from './actions/user-update-dialog.component';
 
 @Component({
@@ -21,15 +21,23 @@ export class UserComponent extends AbstractPageComponent<User>
     .setLimit(AbstractPageComponent.DEFAULT_LIMIT);
 
   @ViewChild(MatPaginator)
-  public paginator: MatPaginator;
-  public loading: boolean;
-  public columnList: string[] = [
+  paginator: MatPaginator;
+  loading: boolean;
+  columnList: string[] = [
+    'actions',
     'id',
     'firstName',
     'lastName',
     'phone',
-    'actions',
+    'role',
   ];
+
+  readonly roleList = new Map<string, string>([
+    [UserRoles.DRIVER, 'Водитель'],
+    [UserRoles.MANAGER, 'Менеджер'],
+    [UserRoles.ADMIN, 'Администратор'],
+    [UserRoles.ACCOUNTANT, 'Бухгалтер'],
+  ]);
 
   constructor(
     userService: UserService,
@@ -50,7 +58,7 @@ export class UserComponent extends AbstractPageComponent<User>
       width: '400px',
     });
 
-    dialogRef.afterClosed().subscribe(newUser => {
+    dialogRef.afterClosed().subscribe((newUser) => {
       if (newUser) this.loadData();
     });
   }
@@ -61,7 +69,7 @@ export class UserComponent extends AbstractPageComponent<User>
       data: user,
     });
 
-    dialogRef.afterClosed().subscribe(newUser => {
+    dialogRef.afterClosed().subscribe((newUser) => {
       if (newUser) this.loadData();
     });
   }

@@ -2,8 +2,27 @@
   margin-bottom: 10px;
 }
 
+.header-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: center;
+}
+
 .header-title {
   font-weight: 400;
   font-size: 22px;
   color: white;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.header-user-text {
+  font-weight: 300;
+  font-size: 22px;
 }

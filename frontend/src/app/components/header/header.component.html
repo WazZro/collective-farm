@@ -1,12 +1,16 @@
 <mat-toolbar class="header mat-elevation-z6" color="primary">
-  <a mat-button [routerLink]="['/']">
-    <span class="header-title">COLHOZ SYSTEMS</span>
-    <!-- <span>&nbsp;</span>
-    <span style="font-weight: 300; font-size: 22px;">{{ title }}</span> -->
-  </a>
-  <!-- <nav>
-    <a *ngFor="let item of menu" mat-button [routerLink]="[item.link]">
-      {{ item.label }}
-    </a>
-  </nav> -->
+  <mat-toolbar-row class="header-row">
+    <div>
+      <a mat-button [routerLink]="['/']">
+        <span class="header-title">{{title}}</span>
+      </a>
+    </div>
+
+    <div class="header-user" *ngIf="user">
+      <span class="header-user-text">{{ user.fullName }}</span>
+      <a mat-icon-button (click)="logOut()">
+        <mat-icon>exit_to_app</mat-icon>
+      </a>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>

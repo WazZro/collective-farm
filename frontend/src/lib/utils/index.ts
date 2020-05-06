@@ -1,7 +1,3 @@
-import { getDifferenceBetweenObjects } from './difference';
-import getMessageFromError from './getMessageFromError';
-import { getEntityStreamNew } from './ngSelectStreams';
-
-export { getMessageFromError };
-export { getDifferenceBetweenObjects };
-export { getEntityStreamNew };
+export { getEntityStreamNew } from './ngSelectStreams';
+export { getDifferenceBetweenObjects } from './difference';
+export { getMessageFromError } from './getMessageFromError';

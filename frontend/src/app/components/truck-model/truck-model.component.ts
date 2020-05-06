@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestQueryBuilder } from '@nestjsx/crud-request';
-import { AbstractPageComponent } from '../../../lib/classes/PageComponent';
-import { TruckModel } from '../../../lib/models/truck-model.model';
-import { TruckModelService } from '../../../lib/services/truck-model.service';
+import { AbstractPageComponent } from '../../../lib/classes/page-component';
+import { TruckModel } from '../../../models/truck-model.model';
+import { TruckModelService } from '../../../services/truck-model.service';
 import { TruckModelCreateDialogComponent } from './actions/truck-model-create-dialog.component';
 import { TruckModelUpdateDialogComponent } from './actions/truck-model-update-dialog.component';
 

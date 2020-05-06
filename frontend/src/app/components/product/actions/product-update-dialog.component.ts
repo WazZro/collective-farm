@@ -2,10 +2,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AbstractUpdateComponent } from '../../../../lib/classes/AbstractUpdateComponent';
+import { AbstractUpdateComponent } from '../../../../lib/classes/abstract-update-component';
 import { getDifferenceBetweenObjects } from '../../../../lib/utils';
-import { Product } from '../../../../lib/models/product.model';
-import { ProductService } from '../../../../lib/services/product.service';
+import { Product } from '../../../../models/product.model';
+import { ProductService } from '../../../../services/product.service';
 
 @Component({
   selector: 'app-product-update-dialog',

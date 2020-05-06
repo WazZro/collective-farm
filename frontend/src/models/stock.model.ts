@@ -2,12 +2,16 @@ import { Product } from './product.model';
 import { Type } from 'class-transformer';
 
 export class Stock {
-  public id?: number;
+  id?: number;
   @Type(() => Product) product: Product;
-  public capacity: number;
-  public congestion: number;
+  capacity: number;
+  congestion: number;
 
-  get fullness(): number {
+  public get name(): string {
+    return `Склад #${this.id} - ${this.product?.name}`;
+  }
+
+  public get fullness(): number {
     return (this.congestion / this.capacity) * 100;
   }
 

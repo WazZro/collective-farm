@@ -2,9 +2,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AbstractCreateComponent } from '../../../../lib/classes/AbstractCreateComponent';
-import { Product } from '../../../../lib/models/product.model';
-import { ProductService } from '../../../../lib/services/product.service';
+import { AbstractCreateComponent } from '../../../../lib/classes/abstract-create-component';
+import { Product } from '../../../../models/product.model';
+import { ProductService } from '../../../../services/product.service';
 
 @Component({
   selector: 'app-product-create-dialog',

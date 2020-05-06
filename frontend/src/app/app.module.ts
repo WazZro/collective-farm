@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,12 +19,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
-// import { SelectAutocompleteModule } from 'mat-select-autocomplete';
-import { ProductService } from '../lib/services/product.service';
-import { StockService } from '../lib/services/stock.service';
-import { TruckModelService } from '../lib/services/truck-model.service';
-import { TruckService } from '../lib/services/truck.service';
-import { UserService } from '../lib/services/user.service';
+import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
+import { ProductService } from '../services/product.service';
+import { StockService } from '../services/stock.service';
+import { TruckModelService } from '../services/truck-model.service';
+import { TruckService } from '../services/truck.service';
+import { UserService } from '../services/user.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -44,6 +44,16 @@ import { TruckComponent } from './components/truck/truck.component';
 import { UserCreateDialogComponent } from './components/user/actions/user-create-dialog.component';
 import { UserUpdateDialogComponent } from './components/user/actions/user-update-dialog.component';
 import { UserComponent } from './components/user/user.component';
+import { DeliveryService } from '../services/delivery.service';
+import { DeliveryComponent } from './components/delivery/delivery.component';
+import { DeliveryCreateDialogComponent } from './components/delivery/actions/delivery-create-dialog.component';
+import { DeliveryUpdateDialogComponent } from './components/delivery/actions/delivery-update-dialog.component';
+import { LoginComponent } from './components/login/login.component';
+import { Router } from '@angular/router';
+import { DeliveryTableComponent } from './components/delivery/delivery-table/delivery-table.component';
+import { DeliveryStatusDialogComponent } from './components/delivery/delivery-table/delivery-status-modal.component';
+import { ManagerComponent } from './components/manager/manager.component';
+import { DriverComponent } from './components/driver/driver.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +61,9 @@ import { UserComponent } from './components/user/user.component';
     // StockComponent,
     HomeComponent,
     HeaderComponent,
+    ManagerComponent,
+    DriverComponent,
+    LoginComponent,
     UserComponent,
     UserCreateDialogComponent,
     UserUpdateDialogComponent,
@@ -66,9 +79,14 @@ import { UserComponent } from './components/user/user.component';
     StockComponent,
     StockCreateDialogComponent,
     StockUpdateDialogComponent,
+    DeliveryComponent,
+    DeliveryCreateDialogComponent,
+    DeliveryUpdateDialogComponent,
+    DeliveryTableComponent,
+    DeliveryStatusDialogComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -90,7 +108,7 @@ import { UserComponent } from './components/user/user.component';
     MatCardModule,
     MatAutocompleteModule,
     MatProgressBarModule,
-    // TableVirtualScrollModule,
+    TableVirtualScrollModule,
   ],
   providers: [
     UserService,
@@ -98,6 +116,18 @@ import { UserComponent } from './components/user/user.component';
     TruckModelService,
     TruckService,
     StockService,
+    DeliveryService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (userService: UserService, router: Router) => async () => {
+        const user = await userService.getCurrentUser();
+        console.log(user);
+        if (!user) await router.navigate(['/login']);
+        else await router.navigate(['/']);
+      },
+      deps: [UserService, Router],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractEntityService } from '../classes/AbstractEntityService';
+import { AbstractEntityService } from '../lib/classes/abstract-entity-service';
 import { Truck } from '../models/truck.model';
 import { ApiRequestService } from './api.service';
 

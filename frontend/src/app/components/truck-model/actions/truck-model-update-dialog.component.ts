@@ -2,9 +2,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AbstractUpdateComponent } from '../../../../lib/classes/AbstractUpdateComponent';
-import { TruckModel } from '../../../../lib/models/truck-model.model';
-import { TruckModelService } from '../../../../lib/services/truck-model.service';
+import { AbstractUpdateComponent } from '../../../../lib/classes/abstract-update-component';
+import { TruckModel } from '../../../../models/truck-model.model';
+import { TruckModelService } from '../../../../services/truck-model.service';
 import { getDifferenceBetweenObjects } from '../../../../lib/utils';
 
 @Component({

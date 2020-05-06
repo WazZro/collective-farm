@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API: 'https://colhoz-wazzro.cloud.okteto.net/api',
+  API: 'http://collective-farm.k3s.local/api/v1',
 };
