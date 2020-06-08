@@ -31,7 +31,7 @@ import { EntityResolver } from './lib/pipes/resolver.pipe';
       migrationsRun: true,
       cli: { migrationsDir: 'src/migrations' },
       synchronize: true,
-      logging: ['query'],
+      // logging: ['query'],
       namingStrategy: new SnakeNamingStrategy(),
     }),
     UserModule,

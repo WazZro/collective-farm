@@ -3,15 +3,11 @@ version: '3'
 services:
   app:
     build: ./
-    command: ['']
+    image: wazzro/call-front:latest
     environment:
-      - NODE_ENV=${ENVIRONMENT:-development}
-    volumes:
-      - ./:/app:Z
+      - NODE_ENV=production
     ports:
-      - '4000:4000'
-      - '9229'
+      - '8080:80'
     tty: true
     networks:
       - default
-

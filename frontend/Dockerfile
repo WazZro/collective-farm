@@ -6,5 +6,5 @@ COPY ./ ./
 RUN npm run build -- --prod
 
 FROM nginx:alpine
-#COPY nginx.config /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/nginx.config /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist/colhoz-front/browser /usr/share/nginx/html

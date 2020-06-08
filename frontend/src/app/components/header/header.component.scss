@@ -26,3 +26,9 @@
   font-weight: 300;
   font-size: 22px;
 }
+
+@media only screen and (max-width: 720px) {
+  .header-user-text {
+    display: none;
+  }
+}
