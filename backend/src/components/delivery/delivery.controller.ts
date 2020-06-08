@@ -33,6 +33,8 @@ import { UserRoles } from '../../lib/interfaces/user-role.enum';
       driver: { eager: true, alias: 'dr' },
       product: { eager: true, alias: 'pr' },
       stock: { eager: true, alias: 'st' },
+      'stock.product': { eager: true, alias: 'st-pr' },
+      'truck.model': { eager: true, alias: 'tr-md' },
     },
   },
 })
